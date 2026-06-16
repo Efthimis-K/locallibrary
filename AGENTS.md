@@ -24,7 +24,7 @@ Key dependencies are pinned in `requirements.txt`.
 
 ## Project Structure
 
-```
+```text
 locallibrary/                  # Project root / Django project config
 ├── locallibrary/
 │   ├── settings.py            # Django settings (env vars, middleware, DB, static files)
