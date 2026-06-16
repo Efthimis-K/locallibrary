@@ -1,11 +1,50 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<form action="" method="post">
-  {% csrf_token %}
-  <table>
-    {{ form.as_table }}
-  </table>
-  <input type="submit" value="Submit" />
-</form>
+<div class="container py-4">
+  <div class="card">
+    <div class="card-header">
+      <h1 class="mb-0">{% if object %}Update{% else %}Create{% endif %} Author</h1>
+    </div>
+    <div class="card-body">
+      <form action="" method="post">
+        {% csrf_token %}
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="id_first_name" class="form-label">First name:</label>
+            {{ form.first_name }}
+            {% if form.first_name.errors %}
+              <div class="text-danger">{{ form.first_name.errors }}</div>
+            {% endif %}
+          </div>
+          <div class="col-md-6">
+            <label for="id_last_name" class="form-label">Last name:</label>
+            {{ form.last_name }}
+            {% if form.last_name.errors %}
+              <div class="text-danger">{{ form.last_name.errors }}</div>
+            {% endif %}
+          </div>
+          <div class="col-md-6">
+            <label for="id_date_of_birth" class="form-label">Date of birth:</label>
+            {{ form.date_of_birth }}
+            {% if form.date_of_birth.errors %}
+              <div class="text-danger">{{ form.date_of_birth.errors }}</div>
+            {% endif %}
+          </div>
+          <div class="col-md-6">
+            <label for="id_date_of_death" class="form-label">Date of death:</label>
+            {{ form.date_of_death }}
+            {% if form.date_of_death.errors %}
+              <div class="text-danger">{{ form.date_of_death.errors }}</div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="mt-4">
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <a href="{% url 'authors' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

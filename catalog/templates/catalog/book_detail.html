@@ -1,32 +1,41 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Title: {{ book.title }}</h1>
-  <p>
-  <strong>Author:</strong>
-  <a href="{{ book.author.get_absolute_url }}">{{ book.author }}</a>
-  </p>
-  <!--<p><strong>Author:</strong> <a href="">{{ book.author }}</a></p>-->
-  <!-- author detail link not yet defined -->
-  <p><strong>Summary:</strong> {{ book.summary }}</p>
-  <p><strong>ISBN:</strong> {{ book.isbn }}</p>
-  <p><strong>Language:</strong> {{ book.language }}</p>
-  <p><strong>Genre:</strong> {{ book.genre.all|join:", " }}</p>
-
-  <div style="margin-left:20px;margin-top:20px">
-    <h4>Copies</h4>
-
-    {% for copy in book.bookinstance_set.all %}
-      <hr />
-      <p
-        class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %}">
-        {{ copy.get_status_display }}
-      </p>
-      {% if copy.status != 'a' %}
-        <p><strong>Due to be returned:</strong> {{ copy.due_back }}</p>
-      {% endif %}
-      <p><strong>Imprint:</strong> {{ copy.imprint }}</p>
-      <p class="text-muted"><strong>Id:</strong> {{ copy.id }}</p>
-    {% endfor %}
+<div class="container py-4">
+  <div class="card mb-4">
+    <div class="card-header">
+      <h1 class="mb-0">Title: {{ book.title }}</h1>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-8">
+          <p class="mb-2"><strong>Author:</strong> <a href="{{ book.author.get_absolute_url }}">{{ book.author }}</a></p>
+          <p class="mb-2"><strong>ISBN:</strong> {{ book.isbn }}</p>
+          <p class="mb-2"><strong>Genre:</strong> {{ book.genre.all|join:", " }}</p>
+          <p class="mb-0"><strong>Summary:</strong> {{ book.summary }}</p>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h4 class="mb-0">Copies</h4>
+    </div>
+    <div class="card-body">
+      {% for copy in book.bookinstance_set.all %}
+        <div class="border-bottom pb-3 mb-3 last:border-0 last:pb-0 last:mb-0">
+          <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %} mb-2">
+            {{ copy.get_status_display }}
+          </p>
+          {% if copy.status != 'a' %}
+            <p class="mb-2"><strong>Due to be returned:</strong> {{ copy.due_back }}</p>
+          {% endif %}
+          <p class="mb-2"><strong>Imprint:</strong> {{ copy.imprint }}</p>
+          <p class="text-muted mb-0"><strong>Id:</strong> {{ copy.id }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
 {% endblock %}
