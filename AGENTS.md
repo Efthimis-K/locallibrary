@@ -8,15 +8,14 @@ A Django-based library management web application, built as part of the Mozilla 
 
 ## Tech Stack
 
-| Component | Technology |
-|-----------|-----------|
-| Framework | Django 5.2.6 |
-| Language | Python 3.13 |
-| Database | SQLite (development), supports PostgreSQL via `DATABASE_URL` env variable |
-| Static files | WhiteNoise + Django statics |
-| Env management | python-dotenv |
-| Deployment | Gunicorn ready |
-| Dev tooling | django-debug-toolbar |
+| Component      | Technology                                           |
+| -------------- | ---------------------------------------------------- |
+| Framework      | Django 5.2.6                                         |
+| Language       | Python 3.14                                          |
+| Database       | SQLite (development), PostgreSQL via dj-database-url |
+| Static files   | WhiteNoise 6.11.0                                    |
+| Env management | python-dotenv 1.1.1                                  |
+| Deployment     | Gunicorn 23.0.0                                      |
 
 Key dependencies are pinned in `requirements.txt`.
 
@@ -80,17 +79,25 @@ locallibrary/                  # Project root / Django project config
 
 ## Environment Variables
 
-| Variable | Purpose | Default |
-|-----------|---------|---------|
-| `DJANGO_SECRET_KEY` | Django secret key | development fallback |
-| `DJANGO_DEBUG` | Debug mode (`False` disables) | development fallback |
-| `DATABASE_URL` | Override DB (e.g., PostgreSQL) | SQLite |
+| Variable            | Purpose                        | Default              |
+| ------------------- | ------------------------------ | -------------------- |
+| `DJANGO_SECRET_KEY` | Django secret key              | development fallback |
+| `DJANGO_DEBUG`      | Debug mode (`False` disables)  | development fallback |
+| `DATABASE_URL`      | Override DB (e.g., PostgreSQL) | SQLite               |
 
 `.env` file is loaded via python-dotenv in `settings.py`.
 
 ---
 
 ## Running Locally
+
+All commands must be run inside the project's Python virtual environment. Activate it first in PowerShell:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+Then run:
 
 ```powershell
 python manage.py migrate
@@ -108,6 +115,7 @@ python manage.py test
 
 ## Notes for Agents
 
+- **Always activate the virtual environment** before running any command: `.venv\Scripts\Activate.ps1` in PowerShell.
 - Django 5.2 codebase; do not use deprecated APIs.
 - Keep templates in `templates/` and `catalog/templates/catalog/`.
 - Static assets live under `catalog/static/`; WhiteNoise handles static file serving in production.
