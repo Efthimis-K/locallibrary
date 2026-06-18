@@ -164,9 +164,11 @@ STATIC_URL = '/static/'
 
 # Static file serving.
 # https://whitenoise.readthedocs.io/en/stable/django.html#add-compression-and-caching-support
+import sys
+
 STORAGES = {
     # ...
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage" if "test" in sys.argv else "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
