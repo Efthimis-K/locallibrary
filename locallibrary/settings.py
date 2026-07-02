@@ -31,7 +31,15 @@ load_dotenv(env_path)
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-&psk#na5l=p3q8_a+-$4w1f^lt3lx1c@d*p4x$ymm_rn7pwb87'
 import os
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-&$hn*o)q^g!k637y1zoa+q@84lp*pa5gy=rmtasm$ire03gp*o')
+from django.core.exceptions import ImproperlyConfigured
+
+def require_env(var_name):
+    value = os.environ.get(var_name)
+    if not value:
+        raise ImproperlyConfigured(f"The {var_name} environment variable is required.")
+    return value
+
+SECRET_KEY = require_env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
