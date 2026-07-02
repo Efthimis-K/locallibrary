@@ -81,7 +81,7 @@ locallibrary/                  # Project root / Django project config
 
 | Variable            | Purpose                        | Default              |
 | ------------------- | ------------------------------ | -------------------- |
-| `DJANGO_SECRET_KEY` | Django secret key              | development fallback |
+| `DJANGO_SECRET_KEY` | Django secret key              | Required (no fallback) |
 | `DJANGO_DEBUG`      | Debug mode (`False` disables)  | development fallback |
 | `DATABASE_URL`      | Override DB (e.g., PostgreSQL) | SQLite               |
 
